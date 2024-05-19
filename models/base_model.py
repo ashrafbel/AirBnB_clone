@@ -42,5 +42,4 @@ class BaseModel:
         drictobj['updated_at'] = self.updated_at.isoformat()
         drictobj["created_at"] = self.created_at.isoformat()
         drictobj['__class__'] = self.__class__.__name__
-
         return drictobj
