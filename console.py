@@ -118,6 +118,27 @@ class HBNBCommand(cmd.Cmd):
                 setattr(instances_, args[2], eval(args[3]))
                 instances_.save()
 
+    def default(self, line):
+        """Handle class-specific commands with dot notation."""
+        if "." in line:
+            spt = line.split(".")
+            if len(spt) == 2 and spt[1] == "all()":
+                return self.do_all(spt[0])
+            elif len(spt) == 2 and spt[1] == 'count()':
+                o = [obj for key, obj in models.storage.all().items()
+                     if key.startswith(spt[0])]
+                c = len(o)
+                print(c)
+            elif spt[1].startswith('show('):
+                spt_ins = spt[1][5:-1].split(',')
+                if len(spt_ins) >= 1:
+                    instance_id = spt_ins[0].strip(' "')
+                    key = f"{spt[0]}.{instance_id}"
+                    if key not in models.storage.all():
+                        print("** no instance found **")
+                    else:
+                        print(models.storage.all()[key])
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
