@@ -92,7 +92,7 @@ class HBNBCommand(cmd.Cmd):
             for KEY_, inst in models.storage.all().items():
                 if KEY_.startswith(Args[0]):
                     instances_.append(str(inst))
-        print(instances_)
+            print(instances_)
 
     def do_update(self, args):
         """
